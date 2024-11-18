@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.Random;
+import java.lang.InterruptedException;
 
 public class Topic_10_TextboxTextArea {
     WebDriver driver;
@@ -24,7 +25,7 @@ public class Topic_10_TextboxTextArea {
 //        driver.get("https://alada.vn/tai-khoan/dang-ky.html");
     }
     @Test
-    public void Topic_10_TextboxTextArea(){
+    public void Topic_01_TechPanda(){
         driver.get("http://live.techpanda.org/");
         driver.findElement(By.cssSelector("div.footer a[title='My Account']")).click();
         driver.findElement(By.cssSelector("a[title='Create an Account']")).click();
@@ -69,10 +70,168 @@ public class Topic_10_TextboxTextArea {
                 "Your review has been accepted for moderation.");
 
     }
+    @Test
+    public void Topic_02_OrangeHRM(){
+        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
+        String firstName = "Tran";
+        String middleName = "Hoai";
+        String lastName = "Lam";
+        String userName = "LamTH" + new Random().nextInt(9999);
+        String password = "123Asd!";
+        String confirmPassword = "123Asd!";
+        String passportNumber ="123-456-789-0000";
+        String passportComment ="Tran Hoai Lam\n Best Review\n Best comment";
+
+        //Admin
+        driver.findElement(By.cssSelector("input[name='username']")).sendKeys("Admin");
+        driver.findElement(By.cssSelector("input[name='password']")).sendKeys("admin123");
+        driver.findElement(By.cssSelector("button.orangehrm-login-button")).click();
+//        Thread.sleep(4000);
+
+        driver.findElement(By.xpath("//span[text()='PIM']/parent::a")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+
+        driver.findElement(By.xpath("//a[text()='Add Employee']")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+
+        driver.findElement(By.cssSelector("input[name='firstName']")).sendKeys(firstName);
+        driver.findElement(By.cssSelector("input[name='middleName']")).sendKeys(middleName);
+        driver.findElement(By.cssSelector("input[name='lastName']")).sendKeys(lastName);
+
+        String employeeId = driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value");
+        driver.findElement(By.xpath("//p[text()='Create Login Details']/following-sibling::div//label")).click();
+
+        // Employee
+        driver.findElement(By.xpath("//label[text()='Username']/parent::div/following-sibling::div/input")).sendKeys(userName);
+        driver.findElement(By.xpath("//label[text()='Password']/parent::div/following-sibling::div/input")).sendKeys(password);
+        driver.findElement(By.xpath("//label[text()='Confirm Password']/parent::div/following-sibling::div/input")).sendKeys(confirmPassword);
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+
+        driver.findElement(By.xpath("//a[text()='Immigration']")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+        driver.findElement(By.xpath("//h6[text()='Assigned Immigration Records']/following-sibling::button[contains(string(),'Add')]")).click();
+        driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).sendKeys(passportNumber);
+        driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).sendKeys(passportComment);
+        driver.findElement(By.xpath("//button[contains(string(),'Save')]")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+        driver.findElement(By.cssSelector("i.bi-pencil-fill")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+        Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).getAttribute("value"),passportNumber);
+        Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).getAttribute("value"),passportComment);
+
+        driver.findElement(By.cssSelector("p.oxd-userdropdown-name")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+
+//        driver.findElement(By.xpath("a[text()='Immigration']")).click();
+//        try
+//        {
+//            Thread.sleep(5000);
+//        }
+//        catch(InterruptedException e)
+//        {
+//            // this part is executed when an exception (in this example InterruptedException) occurs
+//        }
+
+        driver.findElement(By.xpath("//a[text()='Logout']")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+
+        driver.findElement(By.cssSelector("input[name='username']")).sendKeys(userName);
+        driver.findElement(By.cssSelector("input[name='password']")).sendKeys(password);
+        driver.findElement(By.cssSelector("button.orangehrm-login-button")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+
+        driver.findElement(By.xpath("//span[text()='My Info']")).click();
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+        Assert.assertEquals(driver.findElement(By.cssSelector("input[name='firstName']")).getAttribute("value"),firstName);
+        Assert.assertEquals(driver.findElement(By.cssSelector("input[name='middleName']")).getAttribute("value"),middleName);
+        Assert.assertEquals(driver.findElement(By.cssSelector("input[name='lastName']")).getAttribute("value"),lastName);
+        Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value"),employeeId);
+        Assert.assertFalse(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).isEnabled());
+
+        try
+        {
+            Thread.sleep(10000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+
+    }
     @AfterClass
     public void afterClass(){
         driver.quit();
     }
-
 }
