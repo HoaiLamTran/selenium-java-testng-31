@@ -2,11 +2,13 @@ package webdriver;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -16,6 +18,7 @@ import org.openqa.selenium.SessionNotCreatedException;
 
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
 public class Topic_11_Default_Dropdown {
@@ -25,10 +28,23 @@ public class Topic_11_Default_Dropdown {
     public void beforeClass() {
 //        driver = new ChromeDriver();
 //        driver = new FirefoxDriver();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--user-data-dir=C:\\Users\\h.lam_\\AppData\\Local\\Google\\Chrome\\User Data\\");
-        chromeOptions.addArguments("--profile-directory=Profile 9");
-        driver = new ChromeDriver(chromeOptions) ;
+
+        // Tắt capcha
+//        EdgeOptions edgeOptions = new ChromeOptions();
+//        ChromeOptions chromeOptions = new ChromeOptions();
+//        chromeOptions.addArguments("--user-data-dir=C:\\Users\\h.lam_\\AppData\\Local\\Google\\Chrome\\User Data\\");
+//        chromeOptions.addArguments("--profile-directory=Profile 9");
+//        driver = new ChromeDriver(chromeOptions) ;
+
+        // Tắt location
+//        ChromeOptions option = new ChromeOptions();
+//        options.addArguments("--disable-geolocation");
+//        driver = new ChromeDriver(options);
+
+        FirefoxOptions option = new FirefoxOptions();
+        option.addPreference("geo.enabled", false);
+        option.addPreference("geo.provider.use_corelocation", false);
+        driver = new FirefoxDriver(option);
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
@@ -72,9 +88,35 @@ public class Topic_11_Default_Dropdown {
         Assert.assertEquals(driver.findElement(By.id("Company")).getAttribute("value"),company);
     }
     @Test
-    public void Topic_02(){
+    public void Topic_02_Rode(){
+        driver.get("https://rode.com/en/support/where-to-buy");
 
+
+        new Select(driver.findElement(By.cssSelector("select[id='country']"))).selectByVisibleText("Vietnam");
+        try
+        {
+            Thread.sleep(3000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+        driver.findElement(By.cssSelector("input#map_search_query")).sendKeys("Ho Chi Minh");
+        try
+        {
+            Thread.sleep(3000);
+        }
+        catch(InterruptedException e)
+        {
+            // this part is executed when an exception (in this example InterruptedException) occurs
+        }
+        driver.findElement(By.xpath("//button[text()='Search']")).click();
+
+//        List<WebElement> listData = driver.findElements((By.cssSelector("div.dealer_branch h4"));
+//                Assert.assertEquals(listData.size(),16);
+//                for (WebElement deadled)
     }
+
     @AfterClass
     public void afterClass(){
 //        driver.quit();
